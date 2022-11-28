@@ -26,25 +26,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvWordResult : TextView
     lateinit var btGetWord : Button
 
-    lateinit var getWord : String
+    lateinit var randomWord : String
     lateinit var getSoundUrl : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.tvWord.text = "Ожидаем данные"
+        binding.tvWord.text = ""
+        binding.tvPhonetic.text = ""
 
         binding.mainLayout.setOnClickListener {
             binding.tvReto.text = getWord()
             binding.tvReto2.text = getSentence()
             indexNumber = randomNumber()
 
-
         }
 
         var listOfRandomWords = listOf(
             "Apple",
+            "Apple",
+            "Android",
             "Android",
             "Hello",
             "Declare",
@@ -53,22 +55,19 @@ class MainActivity : AppCompatActivity() {
 
         getSoundUrl = "https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3"
 
+        // запускаем первый раз при создании экрана
+            //   randomWord = listOfRandomWords.random()
+       // getWordFromApi(randomWord)
+
         // При нажатии на кнопку надо получить по API слово Android
         binding.btGetWord.setOnClickListener {
 
-            getWord = listOfRandomWords.random()
-            getWordFromApi()
+            randomWord = listOfRandomWords.random()
+            getWordFromApi(randomWord)
+            Log.d("MyLog", "Жмём на кнопку и отправляем слово: $randomWord")
 
         }
 
-
-
-
-
-     //   var listOfRandomWordsSize = listOfRandomWords.size - 1
-     //   var listOfRandomWordsRandom = (0..listOfRandomWordsSize).random()
-
-        // binding.tvPhonetic.text = listOfRandomWords.get(3)
 
     }
 
@@ -90,23 +89,31 @@ class MainActivity : AppCompatActivity() {
     // Получение полной информации о слове с API https://dictionaryapi.dev/
     // Случайные слова для подставноки в API берутся из локальной БД
 
-    private fun getWordFromApi() {
+    private fun getWordFromApi(getWord: String) {
         val apiInterface = ApiInterface.create().getDictionaryItem(getWord)
         apiInterface.enqueue(object : Callback<List<DictionaryItem>> {
             override fun onResponse(
                 call: Call<List<DictionaryItem>>?,
                 response: Response<List<DictionaryItem>>?
             ) {
-//                Log.d("MyLog", "Ответ от API: $response")
+
                 if (response?.body() != null) {
                     val responseList = response?.body()
                     responseList?.forEach { it ->
                         //   Log.d("MyLog", "${it.word}")
-                        binding.tvWord.text = it.word + getSoundUrl
+                        getSoundUrl = it.phonetics[0].audio
+
+                        playSound(getSoundUrl)
+
+                        binding.tvWord.text = it.word
                         binding.tvPhonetic.text = it.phonetic
-                        it.phonetics.forEach {
-                            getSoundUrl = it.audio
-                        }
+
+
+                        Log.d("MyLog", "Получена ссылка $getSoundUrl \n Получено слово: ${it.word}")
+/*                            .forEach {
+                            getSoundUrl = it.audio.
+                            Log.d("MyLog", "Получена ссылка $getSoundUrl")
+                        }*/
                     }
                 }
             }
@@ -118,7 +125,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val url = getSoundUrl // your URL here
+
+    }
+
+    fun playSound(setUrlForPlayer: String) {
+        val url = setUrlForPlayer // your URL here
         val mediaPlayer = MediaPlayer().apply {
             setAudioAttributes(
                 AudioAttributes.Builder()
@@ -129,8 +140,8 @@ class MainActivity : AppCompatActivity() {
             setDataSource(url)
             prepare() // might take long! (for buffering, etc)
             start()
+            Log.d("MyLog", "Слушаем слово $getSoundUrl")
         }
     }
-
 
 }
