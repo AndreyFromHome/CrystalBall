@@ -11,21 +11,31 @@ import com.example.crystalball.databinding.FragmentRandomPhraseBinding
 
 class RandomPhraseFragment : Fragment() {
 
+    lateinit var binding: FragmentRandomPhraseBinding
     var indexNumber = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentRandomPhraseBinding.inflate(inflater)
-        // Inflate the layout for this fragment
+        binding = FragmentRandomPhraseBinding.inflate(inflater, container, false)
         return binding.root
+    }
 
-        binding.randomPhraseLayout.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+/*        binding.randomPhraseLayout.setOnClickListener {
             binding.tvPhrase.text = getWord()
             binding.tvSentence.text = getSentence()
             indexNumber = randomNumber()
             Log.d("MyLog", "Клик работает")
+        }*/
+        binding.btNextPhrase.setOnClickListener {
+            indexNumber = randomNumber()
+            binding.tvPhrase.text = getWord()
+            binding.tvSentence.text = getSentence()
+            Log.d("MyLog", "btNextPhrase")
         }
     }
 
