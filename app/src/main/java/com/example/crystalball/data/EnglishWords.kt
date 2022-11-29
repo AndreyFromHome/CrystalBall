@@ -1,4 +1,4 @@
-package com.example.crystalball
+package com.example.crystalball.data
 
 data class EnglishWords(val words: String, val sentence: String)
 

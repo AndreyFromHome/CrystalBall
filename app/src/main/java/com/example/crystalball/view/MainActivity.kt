@@ -1,30 +1,40 @@
-package com.example.crystalball
+package com.example.crystalball.view
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.net.VpnService.prepare
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
-import com.example.crystalball.data.Dictionary
+import androidx.appcompat.app.AppCompatActivity
+import com.example.crystalball.R
 import com.example.crystalball.data.DictionaryItem
+import com.example.crystalball.data.wordsList
 import com.example.crystalball.databinding.ActivityMainBinding
 import com.example.crystalball.model.apis.ApiInterface
-import kotlinx.coroutines.NonCancellable.start
-import org.w3c.dom.Text
+import com.example.crystalball.view.adapters.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private val fragList = listOf(
+        RandomPhraseFragment.newInstance(),
+        Top100WordsFragment.newInstance()
+    )
+
+    private val fragListTitles = listOf(
+        "Случайная фраза",
+        "ТОП-100 слов"
+    )
+
     lateinit var binding : ActivityMainBinding
     var indexNumber = 0
     private lateinit var tvWord : TextView
     private lateinit var tvPhonetic : TextView
     lateinit var tvWordResult : TextView
-    lateinit var btGetWord : Button
 
     lateinit var randomWord : String
     lateinit var getSoundUrl : String
@@ -36,6 +46,12 @@ class MainActivity : AppCompatActivity() {
         binding.tvWord.text = ""
         binding.tvPhonetic.text = ""
 
+        val vpAdapter = ViewPagerAdapter(this, fragList)
+        binding.vp2.adapter = vpAdapter // устанавливаем адаптер в наш viewPager
+        TabLayoutMediator(binding.upTabLayout, binding.vp2) { // связываем tabLayout и viewPager
+            tab, pos -> tab.text = fragListTitles[pos]
+        }.attach()
+
         binding.mainLayout.setOnClickListener {
             binding.tvReto.text = getWord()
             binding.tvReto2.text = getSentence()
@@ -44,10 +60,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         var listOfRandomWords = listOf(
-            "Apple",
+            "Inch",
             "Apple",
             "Android",
-            "Android",
+            "Chat",
             "Hello",
             "Declare",
             "Shuffle"
@@ -55,9 +71,6 @@ class MainActivity : AppCompatActivity() {
 
         getSoundUrl = "https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3"
 
-        // запускаем первый раз при создании экрана
-            //   randomWord = listOfRandomWords.random()
-       // getWordFromApi(randomWord)
 
         // При нажатии на кнопку надо получить по API слово Android
         binding.btGetWord.setOnClickListener {
