@@ -8,22 +8,6 @@
     android:background="#F2EBFF"
     tools:context=".view.MainActivity">
 
-    <TextView
-        android:id="@+id/tvReto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Press"
-        android:textColor="#020202"
-        android:textSize="48sp"
-        app:autoSizeTextType="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/upTabLayout"
         android:layout_width="match_parent"
@@ -45,23 +29,6 @@
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
-        android:id="@+id/tvReto2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Touch me"
-        android:textColor="#020202"
-        android:textSize="34sp"
-        app:autoSizeTextType="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReto"
-        app:layout_constraintVertical_bias="0.100000024" />
-
-    <TextView
         android:id="@+id/tvWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +36,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReto2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvPhonetic"
@@ -91,8 +57,7 @@
         android:text="Получить слово"
         app:layout_constraintBottom_toTopOf="@+id/tvWord"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReto2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp2"

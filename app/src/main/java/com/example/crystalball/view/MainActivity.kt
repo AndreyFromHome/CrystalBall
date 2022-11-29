@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     lateinit var binding : ActivityMainBinding
-    var indexNumber = 0
+
     private lateinit var tvWord : TextView
     private lateinit var tvPhonetic : TextView
     lateinit var tvWordResult : TextView
@@ -52,12 +52,7 @@ class MainActivity : AppCompatActivity() {
             tab, pos -> tab.text = fragListTitles[pos]
         }.attach()
 
-        binding.mainLayout.setOnClickListener {
-            binding.tvReto.text = getWord()
-            binding.tvReto2.text = getSentence()
-            indexNumber = randomNumber()
 
-        }
 
         var listOfRandomWords = listOf(
             "Inch",
@@ -82,21 +77,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    }
-
-
-    private fun randomNumber(): Int {
-        val size = wordsList.size - 1
-        //       Log.d("MyLog", "${wordsList[0].words +wordsList[0].sentence}")
-        return (0..size).random()
-    }
-
-    private fun getWord(): String {
-        return wordsList[indexNumber].words
-    }
-
-    private fun getSentence(): String {
-        return wordsList[indexNumber].sentence
     }
 
     // Получение полной информации о слове с API https://dictionaryapi.dev/
