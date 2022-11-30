@@ -45,13 +45,19 @@ class Top100WordsFragment : Fragment() {
 
         val listOfRandomWords = listOf(
             "Inch",
-            "Apple",
+            "Free",
             "Android",
             "Back",
             "Chat",
-            "Hello",
+            "Crop",
             "Declare",
             "Glide",
+            "Side",
+            "Teach",
+            "Modern",
+            "Act",
+            "Been",
+            "Grow",
             "Shuffle"
         )
 

@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="400dp"
         android:layout_marginRight="20dp"
         android:text="Получить слово"
         app:layout_constraintBottom_toTopOf="@+id/tvWord"

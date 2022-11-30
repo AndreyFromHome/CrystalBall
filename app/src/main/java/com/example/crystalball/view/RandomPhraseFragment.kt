@@ -41,7 +41,7 @@ class RandomPhraseFragment : Fragment() {
 
     private fun randomNumber(): Int {
         val size = wordsList.size - 1
-               Log.d("MyLog", "${wordsList[0].words + wordsList[0].sentence}")
+            // Log.d("MyLog", "${wordsList[0].words + wordsList[0].sentence}")
         return (0..size).random()
     }
 
