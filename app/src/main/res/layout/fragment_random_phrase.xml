@@ -4,7 +4,7 @@
     android:id="@+id/randomPhraseLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D6FFDD"
+    android:background="#DCE5FF"
     tools:context=".view.RandomPhraseFragment">
 
 
@@ -12,7 +12,9 @@
         android:id="@+id/tvPhrase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Press"
         android:textColor="#333333"
@@ -27,12 +29,14 @@
         android:id="@+id/tvSentence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="250dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Touch me to Start"
         android:textColor="#333333"
         android:textSize="26sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +50,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="450dp"
         android:layout_marginRight="20dp"
-        android:text="Next Phrase" />
+        android:text="Получить фразу" />
+
+    <ImageView
+        android:id="@+id/randomPhraseImgGrassBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginRight="-30dp"
+        android:layout_marginBottom="-35dp"
+        android:src="@drawable/grass_frag_1" />
 
 </FrameLayout>

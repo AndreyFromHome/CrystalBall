@@ -22,6 +22,7 @@ class Top100WordsFragment : Fragment() {
 
     lateinit var randomWord : String
     lateinit var getSoundUrl : String
+    lateinit var getSoundAnotherUrl : String
     private lateinit var tvWord : TextView
     private lateinit var tvPhonetic : TextView
     lateinit var tvWordResult : TextView
@@ -42,13 +43,15 @@ class Top100WordsFragment : Fragment() {
         binding.tvPhonetic.text = ""
         getSoundUrl = "https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3"
 
-        var listOfRandomWords = listOf(
+        val listOfRandomWords = listOf(
             "Inch",
             "Apple",
             "Android",
+            "Back",
             "Chat",
             "Hello",
             "Declare",
+            "Glide",
             "Shuffle"
         )
 
@@ -77,28 +80,43 @@ class Top100WordsFragment : Fragment() {
             ) {
 
                 if (response?.body() != null) {
-                    val responseList = response?.body()
-                    responseList?.forEach { it ->
-                        //   Log.d("MyLog", "${it.word}")
-                        getSoundUrl = it.phonetics[0].audio
+                    val responseList = response?.body()!!
+                    binding.tvWord.text = responseList[0].word
 
+                  //  val phonetic1 =responseList[0].phonetics[0].text
+                     binding.tvPhonetic.text = responseList[0].phonetics[0].text
+
+                    val definition = responseList[0].meanings[0].definitions[0].definition
+                    binding.tvDefinition.text = "Определение (definition): \n" + definition
+
+                    try {
+                        getSoundUrl = responseList[0].phonetics[0].audio
+                        Log.d("MyLog", "Audio: $getSoundUrl")
+                    }
+                    catch (e: Exception) {
+                        Log.d("MyLog", "Проблема, в getSoundUrl ничего нет")
+                    }
+
+
+                 //   playSound(getSoundUrl)
+
+                        // Log.d("MyLog", "Audio: $getSoundAnotherUrl")
+                    if (getSoundUrl != "") {
                         playSound(getSoundUrl)
-
-                        binding.tvWord.text = it.word
-                        binding.tvPhonetic.text = it.phonetic
-/*                        it.meanings.forEach{
-                            it.definitions.forEach{
-                                it.definition
-                            }
-                        }*/
-                        val definition = it.meanings[0].definitions[0].definition
-                        definition?.let {
-                            binding.tvDefinition.text = "Определение (definition): \n" + definition
+                    } else if (getSoundUrl == "") {
+                        try {
+                            getSoundAnotherUrl = responseList[0].phonetics[1].audio
+                            Log.d("MyLog", "Audio: $getSoundAnotherUrl")
+                            playSound(getSoundAnotherUrl)
+                        }
+                        catch (e: Exception) {
+                            Log.d("MyLog", "Проблема, в getSoundAnotherUrl ничего нет")
                         }
 
-                        Log.d("MyLog", "Получена ссылка $getSoundUrl \n Получено слово: ${it.word}")
-
+                    } else {
+                        Log.d("MyLog", "Audio не найдено")
                     }
+
                 }
             }
 
