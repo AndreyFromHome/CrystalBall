@@ -43,7 +43,7 @@ class Top100WordsFragment : Fragment() {
         binding.tvPhonetic.text = ""
         getSoundUrl = "https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3"
 
-        val listOfRandomWords = listOf(
+        val listOfRandomWords = mutableListOf(
             "Inch",
             "Free",
             "Android",
@@ -58,12 +58,19 @@ class Top100WordsFragment : Fragment() {
             "Act",
             "Been",
             "Grow",
+            "Neighbour",
+            "Aunt",
+            "Nephew",
+            "Niece",
             "Shuffle"
         )
 
         // При нажатии на кнопку надо получить по API слово Android
         binding.btGetWord.setOnClickListener {
-            randomWord = listOfRandomWords.random()
+            listOfRandomWords.shuffle()
+            randomWord = listOfRandomWords[0]
+           //randomWord = listOfRandomWords.random()
+           //getWordFromApi(randomWord)
             getWordFromApi(randomWord)
             Log.d("MyLog", "Жмём на кнопку и отправляем слово: $randomWord")
         }

@@ -25,12 +25,6 @@ class RandomPhraseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*        binding.randomPhraseLayout.setOnClickListener {
-            binding.tvPhrase.text = getWord()
-            binding.tvSentence.text = getSentence()
-            indexNumber = randomNumber()
-            Log.d("MyLog", "Клик работает")
-        }*/
         binding.btNextPhrase.setOnClickListener {
             indexNumber = randomNumber()
             binding.tvPhrase.text = getWord()
@@ -53,12 +47,8 @@ class RandomPhraseFragment : Fragment() {
         return wordsList[indexNumber].sentence
     }
 
-
-
     companion object {
-
         @JvmStatic
         fun newInstance() = RandomPhraseFragment()
-
     }
 }
